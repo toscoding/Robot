@@ -1,5 +1,5 @@
 import sys, termios, tty, os, time
-import RPi.GPIO as GPIO
+from EmulatorGUI import GPIO
 a=23
 b=24
 c=22
@@ -11,27 +11,21 @@ GPIO.setup(b, GPIO.OUT)
 GPIO.setup(c, GPIO.OUT)
 GPIO.setup(d, GPIO.OUT)
 
-
-def foward() :
+def mfl() :
     GPIO.output(a,True)
-    GPIO.output(b,True)
-    GPIO.output(c,False)
-    GPIO.output(d,False)
-def back() :
-    GPIO.output(a,False)
-    GPIO.output(b,False)
     GPIO.output(c,True)
-    GPIO.output(d,True)
-def right() :
-    GPIO.output(a,True)
-    GPIO.output(b,False)
-    GPIO.output(c,False)
-    GPIO.output(d,True)
-def left() :
-    GPIO.output(a,False)
+    
+def mfr() :
     GPIO.output(b,True)
-    GPIO.output(c,True)
     GPIO.output(d,False)
+def mbl() :
+    GPIO.output(c,True)
+    GPIO.output(a,False)
+def mbr() :
+    GPIO.output(d,True)
+    GPIO.output(b,False)
+    
+        
 def stop() :
     GPIO.output(a,False)
     GPIO.output(b,False)
@@ -53,31 +47,24 @@ button_delay = 0
 while True:
     char = getch()
  
-    if (char == "p"):
-        print("Stop!")
-        exit(0)
+    if (char == "s"):
+        print("mbl")
+        mbl()
  
-    if (char == "d"):
-        print("Left pressed")
-        left()
+    if (char == "z"):
+        print("mfl")
+        mfl()
         time.sleep(button_delay)
- 
-    elif (char == "q"):
-        print("Right pressed")
-        right()
+    elif (char == "o") :
+        print("mfr")
+        mfr()
         time.sleep(button_delay)
- 
-    elif (char == "z"):
-        print("Foward pressed")
-        foward()
+    elif (char == "l") :
+        print("mbr")
+        mbr()
         time.sleep(button_delay)
- 
-    elif (char == "s"):
-        print("Down pressed")
-        back()
-        time.sleep(button_delay)
- 
-    elif (char == " "):
-        print("pause")
+    elif (char == "n") :
+        print("stop")
         stop()
         time.sleep(button_delay)
+        
